@@ -11,5 +11,6 @@ namespace PhoneBook.API.Services
         Task<bool> DeleteContactDetail(Guid id);
         Task<List<ContactDto>> GetContacts();
         Task<ContactWithDetailsDto> GetContactWithDetails(Guid contactId);
+        Task<List<ContactDetailDto>> GetContactDetailsForReport();
     }
 }

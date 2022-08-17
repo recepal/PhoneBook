@@ -7,7 +7,8 @@ using PhoneBook.API.Dtos;
 namespace PhoneBook.API.Data.Queries
 {
     public class ContactQueryHandler : IRequestHandler<GetContactsQuery, List<ContactDto>>,
-                                       IRequestHandler<GetContactWithDetailsQuery, ContactWithDetailsDto>
+                                       IRequestHandler<GetContactWithDetailsQuery, ContactWithDetailsDto>,
+                                       IRequestHandler<GetContactDetailsForReportQuery, List<ContactDetailDto>>
     {
         private readonly PostgreDbContext _context;
         private readonly IMapper _mapper;
@@ -38,6 +39,12 @@ namespace PhoneBook.API.Data.Queries
             contactWithDetailsDto.ContactDetails = _mapper.Map<List<ContactDetailDto>>(contactDetails);
 
             return contactWithDetailsDto;
+        }
+
+        public async Task<List<ContactDetailDto>> Handle(GetContactDetailsForReportQuery request, CancellationToken cancellationToken)
+        {
+            var details = await _context.ContactDetails.ToListAsync();
+            return _mapper.Map<List<ContactDetailDto>>(details);
         }
     }
 }

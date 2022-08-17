@@ -59,5 +59,12 @@ namespace PhoneBook.API.Services
             var result = await _mediatrHandler.Send(query);
             return result;
         }
+
+        public async Task<List<ContactDetailDto>> GetContactDetailsForReport()
+        {
+            var query = new GetContactDetailsForReportQuery();
+            var result = await _mediatrHandler.Send(query);
+            return result;
+        }
     }
 }

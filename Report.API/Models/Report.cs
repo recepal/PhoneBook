@@ -2,8 +2,23 @@
 {
     public class Report : BaseEntity
     {
-        public DateTime RequestDate { get; set; }
-        public ReportStatus ReportStatus { get; set; }
+        public DateTime RequestDate { get; protected set; }
+        public ReportStatus ReportStatus { get; protected set; }
+
+        public Report Create()
+        {
+            RequestDate = DateTime.Now;
+            ReportStatus = ReportStatus.Preparing;
+
+            return this;
+        }
+
+        public Report SetCompleted()
+        {
+            ReportStatus = ReportStatus.Completed;
+
+            return this;
+        }
     }
 
     public enum ReportStatus

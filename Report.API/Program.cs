@@ -1,8 +1,11 @@
 
 
+using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Report.API.Context;
+using Report.API.Mappings;
+using Report.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureServices(builder);
@@ -27,15 +30,16 @@ static void ConfigureServices(WebApplicationBuilder builder)
         options.UseNpgsql(connectionString));
 
     services.AddMvc();
-    //services.AddScoped<IContactService, ContactService>();
+    services.AddHttpClient();
+    services.AddScoped<IReportService, ReportService>();
 
-    //var mapperConfig = new MapperConfiguration(mc =>
-    //{
-    //    mc.AddProfile(new MappingProfile());
-    //});
+    var mapperConfig = new MapperConfiguration(mc =>
+    {
+        mc.AddProfile(new MappingProfile());
+    });
 
-    //IMapper mapper = mapperConfig.CreateMapper();
-    //services.AddSingleton(mapper);
+    IMapper mapper = mapperConfig.CreateMapper();
+    services.AddSingleton(mapper);
 }
 
 static void Configure(WebApplication app, IWebHostEnvironment env)
@@ -53,6 +57,7 @@ static void Configure(WebApplication app, IWebHostEnvironment env)
         });
     }
 
+    //app.UseRabbitListener(); //https://stackoverflow.com/questions/43609345/setup-rabbitmq-consumer-in-asp-net-core-application
     app.UseRouting();
     app.UseAuthorization();
     app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

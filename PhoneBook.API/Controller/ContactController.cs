@@ -46,6 +46,7 @@ namespace PhoneBook.API.Controller
         }
 
         [HttpGet("GetContacts")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetContacts()
         {
             return Ok(await _contactService.GetContacts());
@@ -55,6 +56,12 @@ namespace PhoneBook.API.Controller
         public async Task<IActionResult> GetContactWithDetails(Guid contactId)
         {
             return Ok(await _contactService.GetContactWithDetails(contactId));
+        }
+
+        [HttpGet("GetContactDetailsForReport")]
+        public async Task<IActionResult> GetContactDetailsForReport()
+        {
+            return Ok(await _contactService.GetContactDetailsForReport());
         }
     }
 }
