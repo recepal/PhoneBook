@@ -1,9 +1,8 @@
-using AutoMapper;
+
+
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PhoneBook.API.Context;
-using PhoneBook.API.Mappings;
-using PhoneBook.API.Services;
+using Report.API.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureServices(builder);
@@ -16,7 +15,7 @@ static void ConfigureServices(WebApplicationBuilder builder)
 
     services.AddEndpointsApiExplorer();
     services.AddSwaggerGen(c => c.SwaggerDoc("v1",
-        new Microsoft.OpenApi.Models.OpenApiInfo { Title = "PhoneBook.Api", Version = "v1" }));
+        new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Report.Api", Version = "v1" }));
     services.AddControllers();
 
 
@@ -28,15 +27,15 @@ static void ConfigureServices(WebApplicationBuilder builder)
         options.UseNpgsql(connectionString));
 
     services.AddMvc();
-    services.AddScoped<IContactService, ContactService>();
+    //services.AddScoped<IContactService, ContactService>();
 
-    var mapperConfig = new MapperConfiguration(mc =>
-    {
-        mc.AddProfile(new MappingProfile());
-    });
+    //var mapperConfig = new MapperConfiguration(mc =>
+    //{
+    //    mc.AddProfile(new MappingProfile());
+    //});
 
-    IMapper mapper = mapperConfig.CreateMapper();
-    services.AddSingleton(mapper);
+    //IMapper mapper = mapperConfig.CreateMapper();
+    //services.AddSingleton(mapper);
 }
 
 static void Configure(WebApplication app, IWebHostEnvironment env)
@@ -49,7 +48,7 @@ static void Configure(WebApplication app, IWebHostEnvironment env)
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "PhoneBook.Service v1");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Report.Service v1");
             c.RoutePrefix = string.Empty;
         });
     }
