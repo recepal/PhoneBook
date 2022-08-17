@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Report.API.Context;
 using Report.API.Mappings;
+using Report.API.Middleware;
 using Report.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,7 +58,7 @@ static void Configure(WebApplication app, IWebHostEnvironment env)
         });
     }
 
-    //app.UseRabbitListener(); //https://stackoverflow.com/questions/43609345/setup-rabbitmq-consumer-in-asp-net-core-application
+    app.UseRabbitListener(); //https://stackoverflow.com/questions/43609345/setup-rabbitmq-consumer-in-asp-net-core-application
     app.UseRouting();
     app.UseAuthorization();
     app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

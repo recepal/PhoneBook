@@ -9,6 +9,7 @@
 
         public ReportInfo Create(Guid reportId, string location, int contactCount, int phoneNumberCount)
         {
+            Id = Guid.NewGuid();
             ReportID = reportId;
             Location = location;
             ContactCount = contactCount;

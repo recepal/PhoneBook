@@ -7,7 +7,8 @@
 
         public Report Create()
         {
-            RequestDate = DateTime.Now;
+            Id = Guid.NewGuid();
+            RequestDate = DateTime.Now.ToUniversalTime();
             ReportStatus = ReportStatus.Preparing;
 
             return this;
