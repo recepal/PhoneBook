@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using Newtonsoft.Json;
 using Report.API.Data.Commands;
 using Report.API.Data.Queries;
 using Report.API.Dtos;
+using System.Text.Json;
 using static Report.API.Constants.Settings;
 
 namespace Report.API.Services
@@ -38,8 +38,9 @@ namespace Report.API.Services
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             var response = await client.SendAsync(request);
 
-            var stream = await response.Content.ReadAsStringAsync();
-            var contactDetails = JsonConvert.DeserializeObject<IEnumerable<ContactDetailDto>>(stream);
+            string stream = await response.Content.ReadAsStringAsync();
+            var contactDetails = JsonSerializer.Deserialize<IEnumerable<ContactDetailDto>>(stream, 
+                new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase});
 
             var infos = contactDetails.Where(f => f.InfoType == InfoType.Location)
                 .GroupBy(g => new {g.ContactId, g.InfoType, g.Content}).Select(s => new ReportInfoDto

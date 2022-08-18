@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Report.API.Services;
 using System.Text;
+using System.Text.Json;
 using static Report.API.Constants.Settings;
 
 namespace Report.API.Middleware
@@ -30,7 +30,7 @@ namespace Report.API.Middleware
             consumerEvent.Received += (ch, ea) =>
             {
                 var reportService = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<IReportService>();
-                var reportId = JsonConvert.DeserializeObject<Guid>(Encoding.UTF8.GetString(ea.Body.ToArray()));
+                var reportId = JsonSerializer.Deserialize<Guid>(Encoding.UTF8.GetString(ea.Body.ToArray()));
                
                 reportService.CreateReportInfo(reportId);
             };

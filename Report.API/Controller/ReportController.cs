@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using RabbitMQ.Client;
 using Report.API.Services;
 using System.Text;
+using System.Text.Json;
 
 namespace Report.API.Controller
 {
@@ -42,7 +42,7 @@ namespace Report.API.Controller
 
             channel.QueueDeclare("reportQueue", false, false, false);
             channel.QueueBind("reportQueue", "reportExchange", "reportQueue");
-            channel.BasicPublish("reportExchange", "reportQueue", null, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(reportId)));
+            channel.BasicPublish("reportExchange", "reportQueue", null, Encoding.UTF8.GetBytes(JsonSerializer.Serialize(reportId)));
 
             return Accepted();
         }
