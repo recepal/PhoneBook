@@ -41,7 +41,7 @@ servisleri yazılmıştır.
 PhoneBook.API servisinde kişi oluşturulur, iletişim bilgileri eklenir.
 Report.API servisinde rapor isteği başlatılır. RabbitMQ kuyruğa alır.
 
-Report.API ve PhoneBook.API Rest ile haberleşir.
+Report.API ve PhoneBook.API HTTP üzerinden haberleşir.
 
 Tamamlanan raporlar rapor servisinden çekilir.
 
