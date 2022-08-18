@@ -55,5 +55,17 @@ namespace Report.API.Services
             await _mediatrHandler.Send(new ReportSetCompletedCommand(report.Id)); 
 
         }
+
+        public async Task<List<ReportDto>> GetAllReports()
+        {
+            var result = await _mediatrHandler.Send(new GetAllReportsQuery());
+            return result;
+        }
+
+        public async Task<List<ReportInfoDto>> GetReportInfosByReportId(Guid reportId)
+        {
+            var result = await _mediatrHandler.Send(new GetReportInfosByReportIdQuery(reportId));
+            return result;
+        }
     }
 }

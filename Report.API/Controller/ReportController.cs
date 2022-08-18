@@ -24,14 +24,9 @@ namespace Report.API.Controller
 
         }
 
-        [HttpGet("CreateReportRequest")]
+        [HttpPost("CreateReportRequest")]
         public async Task<IActionResult> CreateReportRequest()
         {
-            //var client = _httpClientFactory.CreateClient();
-            //var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7089/api/Contact/GetContacts");
-            //var response = await client.SendAsync(request);
-
-            //var responseStream = await response.Content.ReadAsStringAsync();
             var reportId = await _reportService.CreateReport();
             
 
@@ -50,6 +45,18 @@ namespace Report.API.Controller
             channel.BasicPublish("reportExchange", "reportQueue", null, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(reportId)));
 
             return Accepted();
+        }
+
+        [HttpGet("GetAllReports")]
+        public async Task<IActionResult> GetAllReports()
+        {
+            return Ok(await _reportService.GetAllReports());
+        }
+
+        [HttpGet("GetReportInfosById")]
+        public async Task<IActionResult> GetReportInfosById(Guid reportId)
+        {
+            return Ok(await _reportService.GetReportInfosByReportId(reportId));
         }
     }
 }

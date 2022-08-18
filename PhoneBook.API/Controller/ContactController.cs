@@ -15,12 +15,6 @@ namespace PhoneBook.API.Controller
             _contactService = contactService;
         }
 
-        [HttpGet("Test")]
-        public async Task<IActionResult> ServiceTest()
-        {
-            return Ok(true);
-        }
-
         [HttpPost("AddContact")]
         public async Task<IActionResult> AddContact(AddContactRequest request)
         {
