@@ -24,8 +24,8 @@ namespace Report.API.Controller
 
         }
 
-        [HttpGet("Test")]
-        public async Task<IActionResult> Test()
+        [HttpGet("CreateReportRequest")]
+        public async Task<IActionResult> CreateReportRequest()
         {
             //var client = _httpClientFactory.CreateClient();
             //var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7089/api/Contact/GetContacts");
