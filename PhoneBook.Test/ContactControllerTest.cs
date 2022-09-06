@@ -29,5 +29,15 @@ namespace PhoneBook.Test
             Assert.Equal(200, ((ObjectResult)result).StatusCode);
         }
 
+        [Fact]
+        public async Task GetContactDetails_Should_Return_Success()
+        {
+            _mockContactService.Setup(x => x.GetContactDetailsForReport())
+                              .ReturnsAsync(new List<ContactDetailDto>() { });
+
+            var result = await _contactController.GetContactDetailsForReport();
+
+            Assert.Equal(200, ((ObjectResult)result).StatusCode);
+        }
     }
 }
